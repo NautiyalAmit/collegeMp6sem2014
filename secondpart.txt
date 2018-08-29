@@ -1,0 +1,134 @@
+First Part: Idea/Algorithm development for question no (2):
+
+SOP:-
+These days we have a huge collection of photos for any occasion taken from digital cameras and mobile phones. The old saying 'a picture is worth a thousand words' is very true with this: an event can be more appropriately described by seeing these pictures rather than describing it with hundreds of lines.
+Think of any event: a birthday party, a tennis match, a picnic trip…you name it. There will be hundreds of photos. Some photos will be very similar as people click two-three photos (one more-one more), photos taken during different times of the whole event etc.
+The task is to describe the event completely by taking minimum number of the photos from all the available photos of the event. For example if there are 200 photos of an event you need to select, say, 50 photos which will describe the whole event. A person needs to simply go through the 50 photos and understand what the event was about and what happened in that event. Propose an algorithm to do this automatically
+
+My Algo:
+
+Pre Step : since there  can be any no of photos (approx 200) , so a seperate folder (lets say  =   party)has to be made and   all the photos of that event have to be copied /moved to that folder (party).
+secondly the importamt part  of my algo is  that the image size should be same or to be very precized pixels size of all the images should be same,  i.e all  the images are of the same size i.e. 320*400 here,rows=320, columns=400
+So, the  overlap region is of :-     320*300=96000 pixels .
+All images are set either in landscape or portrait formats so as to set similar  pixels levels for all. 
+
+Step 1: My algo wants to solve this problem by checking the no of overlapping pixels,  before i describe this various factors have to be checked  to make the algo nearly perfect and next to working condition. so firstly, since images are taken at different postions and different instances of time  so what may be different is the lightening effect( i.e  even closely related images can have differentbrightness , contrast levels) due to flash or clicking errors  .In order to correct that  the contrast and brightness of all the pics in folder  'party'.a standard contrast ,  brightness level  for all images is takes and  corrected  individually.
+     smoothining the image:
+                                                                                                a = imread('noiseremoved.tif');
+				imshow(a), title('Original Image');
+				b = imsharpen(a,'Radius',1,'Amount',0.3);
+				figure, imshow(b), title('Sharpened Image');
+				imsave
+
+
+Step 2: A methord is applied which removes the noise from  images , noise is to be removed so that pictures does not contain  poor background effects.
+by appying weiner function:
+ 					RGB = imread('NOISE ADDED.jpg');
+					I = rgb2gray(RGB);
+
+					imshow(I)
+					%Remove the noise, using the wiener2 function. Again, the figure only show s a portion of the image
+					K = wiener2(I,[10 20]);
+					figure, imshow(K)
+					imsave
+
+Step 3:Many  times it happens that images  clicked are blurred, due to motion or continious shots since that image is  important for us so  its blurreness has to be reduced so that picture becomes usefull to us.thus a methord is applied to reduce the blureness of an image. Use deconvreg to deblur the image, using a regularized filter. A regularized filter can be used effectively when limited information is known about the additive noise. specifying the PSF used to create the blur and the noise power, NP.
+ 					NP = V*prod(size(I)); 
+					[reg1 LAGRA] = deconvreg(BlurredNoisy,PSF,NP);
+					figure,imshow(reg1)
+					title('Restored Image')
+
+Step  4: The next thing that is done is smoothining of  images, for this  individually all the image are smoothened by using  a special methord that is shown in  part two of this algo. smoothing  is done to make the edges  more detailed and so that they may contain more information in them.
+%This is Matlab code to implement Gaussian low pass filter and For high Pass Visit.
+%Gaussian Low Pass filter is used smoothing of an image which is inverse of
+%sharpening.
+					w=imread('NOISE ADDED.jpg');
+					a= imresize(w,0.5);
+					figure(1)
+					imshow(a)
+					[m n]=size(a);
+					f_transform=fft2(a);
+					f_shift=fftshift(f_transform);
+					p=m/2;
+					q=n/2;
+					d0=70;
+					for i=1:m
+					for j=1:n
+					distance=sqrt((i-p)^2+(j-q)^2);
+					low_filter(i,j)=exp(-(distance)^2/(2*(d0^2)));
+					end
+					end
+					filter_apply=f_shift.*low_filter;
+					image_orignal=ifftshift(filter_apply);
+					image_filter_apply=abs(ifft2(image_orignal));
+					figure(2)
+					imshow(image_filter_apply,[])
+
+Step 5: Now this is is most important part of algo : finding threshold of  images, thresholding is done  to show only the edges and important part of the image for this RGB image is coverted into grayscale  and than  threshold images of the  corresponding images have to be  developed by applying global thresholding algorithm. 
+now the  new threshold images will be saved with different names  from the pics in folder"party".   suppose   name of 200 pics were like(img_3412, img_3413...... upto img_ 3612) now  during the thresholding process  the new images individually will be named as(A1,A2,A3,......... upto A200) for our convenience. and then a new folder (let = new)will be made  n which all the threshold images(A1 TO A200)  will be moved.
+					a=imread('1.jpg');
+					anni=rgb2gray(a);
+					img=[];
+					[m, n]= size(anni)
+					for i=1:m
+					for j=1:n
+					if anni(i,j)<=75
+					img(i,j)=0;
+					elseif anni(i,j)>75
+					img(i,j)=1;
+					end
+					end
+					end
+					imshow(img)
+					imsave
+Step 6: now our matter of concern  is the pics in new folder .  As these threhold images only contain the important part in them so  automatically we see that  we now have detailed   and only usefull pixels , now since all images are likely similar  related to : (contrast , brightness , smoothness, blureness)so  now we have to check if images overlap or not.  if pixels of images ovelap then the pics can be identical else not. in simple words we are compairing  a single imade with all the imafes in folder new to check the similarity.
+			clc; % Clear the command window.
+			close all; % Close all figures (except those of imtool.)
+			imtool close all; % Close all imtool figures.
+			clear; % Erase all existing variables.
+			workspace; % Make sure the workspace panel is showing.
+			fontSize = 20;
+
+			% Read in a standard MATLAB gray scale demo image.
+			folder = 'C:\Users\AMIT NAUTIYAL\Documents\MATLAB\mp';
+			baseFileName = 'thresholdimage.jpg';
+			fullFileName = fullfile(folder, baseFileName);
+			gray_image = imread(fullFileName);
+			% Get the dimensions of the image. numberOfColorBands should be = 1.
+			[rows, columns, numberOfColorBands] = size(gray_image);
+			% Display the original gray scale image.
+			subplot(2, 2, 1);
+			imshow(gray_image, []);
+			title('Original Grayscale Image', 'FontSize', fontSize);
+			set(gcf, 'Position', get(0,'Screensize')); % Enlarge figure to full
+
+			% Make a second image with a black block on it.
+			image2 = gray_image;
+			image2(50:160, 170:230) = 0;
+			% Display it.
+			subplot(2, 2, 2);
+			imshow(image2, []);
+			title('Second Image', 'FontSize', fontSize);
+
+			% Calculate difference:
+			differenceImage = gray_image - image2;
+			% Display it.
+			subplot(2, 2, 3);
+			imshow(differenceImage, []);
+			title('Difference Image', 'FontSize', fontSize);
+
+			% Threshold the difference.
+			thresholdedImage = differenceImage > 4;
+			% Sum up the image.
+			sumOfAllPixels = sum(sum(thresholdedImage));
+
+			minAllowableDifference = 1000; % Choose something that works for us.
+			if sumOfAllPixels > minAllowableDifference
+   			 uiwait(msgbox('The images are different.'));
+		else
+  			  uiwait(msgbox('The images are the same.'));
+		end
+
+Step 6: Now the  all the images are checked with one another , to check the similarity. and hence the new similar pictures will be place in a new folder.
+ 
+ 

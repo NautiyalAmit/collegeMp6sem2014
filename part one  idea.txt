@@ -1,0 +1,15 @@
+First Part: Idea/Algorithm development for question no (2):
+
+SOP:-
+These days we have a huge collection of photos for any occasion taken from digital cameras and mobile phones. The old saying 'a picture is worth a thousand words' is very true with this: an event can be more appropriately described by seeing these pictures rather than describing it with hundreds of lines.
+Think of any event: a birthday party, a tennis match, a picnic trip…you name it. There will be hundreds of photos. Some photos will be very similar as people click two-three photos (one more-one more), photos taken during different times of the whole event etc.
+The task is to describe the event completely by taking minimum number of the photos from all the available photos of the event. For example if there are 200 photos of an event you need to select, say, 50 photos which will describe the whole event. A person needs to simply go through the 50 photos and understand what the event was about and what happened in that event. Propose an algorithm to do this automatically.
+
+Idea:
+Since there can be various pictures which we click on an occasion so many times it happens the various similar pictures are captured  which are very much similar to each other and are just  occupying some extra  memory space, thus wasting much memory of our device . 
+How this problem could be handled?
+before finding the  solution to this problem , what is more important is  identifieng the similar pictures. what we firstly have to do is to identify similar pictures, but here  too are a few problems that come into existence.Since pictures  during an event are not clicked at the same time so there are pictures which are quiet similar but their  lightening effects , flash quantity ,  clicking distance, contrast , brightness, blurness etc etc , are different . so to choose a best picture amongs other similar pictures what we have done  is  making all the pictures look similar  in all the aspects  like  lightening effects , flash quantity ,  clicking distance, contrast , brightness, blurness etc . 
+Secondly we have removed the noise from the image and smoothened the pictures so that all may look similar.
+Now thirdly  in image processing  a grayscale picture could be more easily dealt rather than a RGB one  and further  we  only consider the  detailed part / pixels  content of the image so what we  have done is convert all images into binary images  and then applying threshold concept to generate a threshold images(which now contains the  detailed parts  ). now the last step is to compare the two images  .  the similar images could be removed and now  no similar pictures are present.
+
+ Further  Implementation is showed in second part of this algo.
