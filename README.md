@@ -2,9 +2,7 @@
 
 # DETAILS ABOUT IMPLEMENTATIONS:
  
-1.  THIS PROJECT HAS BEEN TOTALLY DEVELOPED  AND IMPLEMENTED BY ME WITHOUT ANY REFERENCES. THE PROJECT HAS BEEN        IMPLEMENTED IN" MATLAB 2013 R" AND RESULTS ARE FAVOURABLE.
-2.  ALSO I HAVE ADDED THE SNAPSHOTS DURING IMPLEMENTATION TIME. 
-3. THE TIME REQUIRED DURING EACH STEP IS ALSO SHOWN.
+1. This project has been totally developed  and implemented by me without any references. the project has been        implemented in" matlab 2013 r" and results are favourable.Also I have added the snapshots during implementation time. The time required during each step is also shown.
 
 - Algo for :These days we have a huge collection of photos for any occasion taken from digital 
 cameras and mobile phones. The old saying 'a picture is worth a thousand words'
