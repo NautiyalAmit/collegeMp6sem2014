@@ -1,4 +1,11 @@
 ## CollegeMp6sem2014
+
+# DETAILS ABOUT IMPLEMENTATIONS:
+ 
+(1) THIS PROJECT HAS BEEN TOTALLY DEVELOPED  AND IMPLEMENTED BY ME WITHOUT ANY REFERENCES. THE PROJECT HAS BEEN        IMPLEMENTED IN" MATLAB 2013 R" AND RESULTS ARE FAVOURABLE.
+(2) ALSO I HAVE ADDED THE SNAPSHOTS DURING IMPLEMENTATION TIME. 
+(3)THE TIME REQUIRED DURING EACH STEP IS ALSO SHOWN.
+
 - Algo for :These days we have a huge collection of photos for any occasion taken from digital 
 cameras and mobile phones. The old saying 'a picture is worth a thousand words'
 is very true with this: an event can be more appropriately described by seeing these pictures rather 
@@ -22,7 +29,7 @@ All images are set either in landscape or portrait formats so as to set similar 
 
 - Step 1: My algo wants to solve this problem by checking the no of overlapping pixels,  before i describe this various factors have to be checked  to make the algo nearly perfect and next to working condition. so firstly, since images are taken at different postions and different instances of time  so what may be different is the lightening effect( i.e  even closely related images can have differentbrightness , contrast levels) due to flash or clicking errors  .In order to correct that  the contrast and brightness of all the pics in folder  'party'.a standard contrast ,  brightness level  for all images is takes and  corrected  individually.
      smoothining the image:
-                                                                                                a = imread('noiseremoved.tif');
+                                a = imread('noiseremoved.tif');
 				imshow(a), title('Original Image');
 				b = imsharpen(a,'Radius',1,'Amount',0.3);
 				figure, imshow(b), title('Sharpened Image');
