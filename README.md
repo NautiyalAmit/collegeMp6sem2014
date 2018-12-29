@@ -2,9 +2,9 @@
 
 # DETAILS ABOUT IMPLEMENTATIONS:
  
-(1) THIS PROJECT HAS BEEN TOTALLY DEVELOPED  AND IMPLEMENTED BY ME WITHOUT ANY REFERENCES. THE PROJECT HAS BEEN        IMPLEMENTED IN" MATLAB 2013 R" AND RESULTS ARE FAVOURABLE.
-(2) ALSO I HAVE ADDED THE SNAPSHOTS DURING IMPLEMENTATION TIME. 
-(3)THE TIME REQUIRED DURING EACH STEP IS ALSO SHOWN.
+1.  THIS PROJECT HAS BEEN TOTALLY DEVELOPED  AND IMPLEMENTED BY ME WITHOUT ANY REFERENCES. THE PROJECT HAS BEEN        IMPLEMENTED IN" MATLAB 2013 R" AND RESULTS ARE FAVOURABLE.
+2.  ALSO I HAVE ADDED THE SNAPSHOTS DURING IMPLEMENTATION TIME. 
+3. THE TIME REQUIRED DURING EACH STEP IS ALSO SHOWN.
 
 - Algo for :These days we have a huge collection of photos for any occasion taken from digital 
 cameras and mobile phones. The old saying 'a picture is worth a thousand words'
@@ -22,12 +22,12 @@ to do this automatically.
 
 ## My Algo:
 
-- Pre Step : since there  can be any no of photos (approx 200) , so a seperate folder (lets say  =   party)has to be made and   all the photos of that event have to be copied /moved to that folder (party).
+- **Pre Step** : since there  can be any no of photos (approx 200) , so a seperate folder (lets say  =   party)has to be made and   all the photos of that event have to be copied /moved to that folder (party).
 secondly the importamt part  of my algo is  that the image size should be same or to be very precized pixels size of all the images should be same,  i.e all  the images are of the same size i.e. 320*400 here,rows=320, columns=400
 So, the  overlap region is of :-     320*300=96000 pixels .
 All images are set either in landscape or portrait formats so as to set similar  pixels levels for all. 
 
-- Step 1: My algo wants to solve this problem by checking the no of overlapping pixels,  before i describe this various factors have to be checked  to make the algo nearly perfect and next to working condition. so firstly, since images are taken at different postions and different instances of time  so what may be different is the lightening effect( i.e  even closely related images can have differentbrightness , contrast levels) due to flash or clicking errors  .In order to correct that  the contrast and brightness of all the pics in folder  'party'.a standard contrast ,  brightness level  for all images is takes and  corrected  individually.
+- **Step 1**: My algo wants to solve this problem by checking the no of overlapping pixels,  before i describe this various factors have to be checked  to make the algo nearly perfect and next to working condition. so firstly, since images are taken at different postions and different instances of time  so what may be different is the lightening effect( i.e  even closely related images can have differentbrightness , contrast levels) due to flash or clicking errors  .In order to correct that  the contrast and brightness of all the pics in folder  'party'.a standard contrast ,  brightness level  for all images is takes and  corrected  individually.
      smoothining the image:
                                 a = imread('noiseremoved.tif');
 				imshow(a), title('Original Image');
@@ -36,7 +36,7 @@ All images are set either in landscape or portrait formats so as to set similar 
 				imsave
 
 
-- Step 2: A methord is applied which removes the noise from  images , noise is to be removed so that pictures does not contain  poor background effects.
+- **Step 2**: A methord is applied which removes the noise from  images , noise is to be removed so that pictures does not contain  poor background effects.
 by appying weiner function:
  					RGB = imread('NOISE ADDED.jpg');
 					I = rgb2gray(RGB);
@@ -47,16 +47,17 @@ by appying weiner function:
 					figure, imshow(K)
 					imsave
 
-- Step 3:Many  times it happens that images  clicked are blurred, due to motion or continious shots since that image is  important for us so  its blurreness has to be reduced so that picture becomes usefull to us.thus a methord is applied to reduce the blureness of an image. Use deconvreg to deblur the image, using a regularized filter. A regularized filter can be used effectively when limited information is known about the additive noise. specifying the PSF used to create the blur and the noise power, NP.
+- **Step 3**:Many  times it happens that images  clicked are blurred, due to motion or continious shots since that image is  important for us so  its blurreness has to be reduced so that picture becomes usefull to us.thus a methord is applied to reduce the blureness of an image. Use deconvreg to deblur the image, using a regularized filter. A regularized filter can be used effectively when limited information is known about the additive noise. specifying the PSF used to create the blur and the noise power, NP.
  					NP = V*prod(size(I)); 
 					[reg1 LAGRA] = deconvreg(BlurredNoisy,PSF,NP);
 					figure,imshow(reg1)
 					title('Restored Image')
 
-- Step  4: The next thing that is done is smoothining of  images, for this  individually all the image are smoothened by using  a special methord that is shown in  part two of this algo. smoothing  is done to make the edges  more detailed and so that they may contain more information in them.
-%This is Matlab code to implement Gaussian low pass filter and For high Pass Visit.
+- **Step  4**: The next thing that is done is smoothining of  images, for this  individually all the image are smoothened by using  a special methord that is shown in  part two of this algo. smoothing  is done to make the edges  more detailed and so that they may contain more information in them.
+
+**%This is Matlab code to implement Gaussian low pass filter and For high Pass Visit.
 %Gaussian Low Pass filter is used smoothing of an image which is inverse of
-%sharpening.
+%sharpening.**
 					w=imread('NOISE ADDED.jpg');
 					a= imresize(w,0.5);
 					figure(1)
@@ -79,9 +80,9 @@ by appying weiner function:
 					figure(2)
 					imshow(image_filter_apply,[])
 
-- Step 5: Now this is is most important part of algo : finding threshold of  images, thresholding is done  to show only the edges and important part of the image for this RGB image is coverted into grayscale  and than  threshold images of the  corresponding images have to be  developed by applying global thresholding algorithm. 
+- **Step 5**: Now this is is most important part of algo : finding threshold of  images, thresholding is done  to show only the edges and important part of the image for this RGB image is coverted into grayscale  and than  threshold images of the  corresponding images have to be  developed by applying global thresholding algorithm. 
 now the  new threshold images will be saved with different names  from the pics in folder"party".   suppose   name of 200 pics were like(img_3412, img_3413...... upto img_ 3612) now  during the thresholding process  the new images individually will be named as(A1,A2,A3,......... upto A200) for our convenience. and then a new folder (let = new)will be made  n which all the threshold images(A1 TO A200)  will be moved.
-					a=imread('1.jpg');
+					**a=imread('1.jpg');
 					anni=rgb2gray(a);
 					img=[];
 					[m, n]= size(anni)
@@ -95,8 +96,8 @@ now the  new threshold images will be saved with different names  from the pics 
 					end
 					end
 					imshow(img)
-					imsave
-- Step 6: now our matter of concern  is the pics in new folder .  As these threhold images only contain the important part in them so  automatically we see that  we now have detailed   and only usefull pixels , now since all images are likely similar  related to : (contrast , brightness , smoothness, blureness)so  now we have to check if images overlap or not.  if pixels of images ovelap then the pics can be identical else not. in simple words we are compairing  a single imade with all the imafes in folder new to check the similarity.
+					imsave**
+- **Step 6**: now our matter of concern  is the pics in new folder .  As these threhold images only contain the important part in them so  automatically we see that  we now have detailed   and only usefull pixels , now since all images are likely similar  related to : (contrast , brightness , smoothness, blureness)so  now we have to check if images overlap or not.  if pixels of images ovelap then the pics can be identical else not. in simple words we are compairing  a single imade with all the imafes in folder new to check the similarity.
 			clc; % Clear the command window.
 			close all; % Close all figures (except those of imtool.)
 			imtool close all; % Close all imtool figures.
@@ -144,6 +145,6 @@ now the  new threshold images will be saved with different names  from the pics 
   			  uiwait(msgbox('The images are the same.'));
 		end
 
-- Step 6: Now the  all the images are checked with one another , to check the similarity. and hence the new similar pictures will be place in a new folder.
+- **Step 6**: Now the  all the images are checked with one another , to check the similarity. and hence the new similar pictures will be place in a new folder.
  
 
