@@ -82,7 +82,7 @@ by appying weiner function:
 
 - **Step 5**: Now this is is most important part of algo : finding threshold of  images, thresholding is done  to show only the edges and important part of the image for this RGB image is coverted into grayscale  and than  threshold images of the  corresponding images have to be  developed by applying global thresholding algorithm. 
 now the  new threshold images will be saved with different names  from the pics in folder"party".   suppose   name of 200 pics were like(img_3412, img_3413...... upto img_ 3612) now  during the thresholding process  the new images individually will be named as(A1,A2,A3,......... upto A200) for our convenience. and then a new folder (let = new)will be made  n which all the threshold images(A1 TO A200)  will be moved.
-					**a=imread('1.jpg');
+					a=imread('1.jpg');
 					anni=rgb2gray(a);
 					img=[];
 					[m, n]= size(anni)
@@ -96,7 +96,7 @@ now the  new threshold images will be saved with different names  from the pics 
 					end
 					end
 					imshow(img)
-					imsave**
+					imsave
 - **Step 6**: now our matter of concern  is the pics in new folder .  As these threhold images only contain the important part in them so  automatically we see that  we now have detailed   and only usefull pixels , now since all images are likely similar  related to : (contrast , brightness , smoothness, blureness)so  now we have to check if images overlap or not.  if pixels of images ovelap then the pics can be identical else not. in simple words we are compairing  a single imade with all the imafes in folder new to check the similarity.
 			clc; % Clear the command window.
 			close all; % Close all figures (except those of imtool.)
